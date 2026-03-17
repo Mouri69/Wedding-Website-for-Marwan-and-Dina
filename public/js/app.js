@@ -246,6 +246,23 @@ const text = document.getElementById('msgText').value.trim();
    DRAWING CANVAS
 ────────────────────────────────────────── */
 let _ctx, _drawColor = '#c97b8c', _isEraser = false, _isDrawing = false;
+let _undoStack = [];
+const MAX_UNDO = 20;
+
+function saveUndoState() {
+  const canvas = document.getElementById('drawCanvas');
+  _undoStack.push(canvas.toDataURL());
+  if (_undoStack.length > MAX_UNDO) _undoStack.shift();
+}
+
+function undoCanvas() {
+  if (!_ctx || _undoStack.length === 0) return;
+  const canvas = document.getElementById('drawCanvas');
+  const prev   = _undoStack.pop();
+  const img    = new Image();
+  img.onload   = () => _ctx.drawImage(img, 0, 0);
+  img.src      = prev;
+}
 
 function initCanvas() {
   const canvas = document.getElementById('drawCanvas');
@@ -267,6 +284,7 @@ function initCanvas() {
   }
 
   function startDraw(e) {
+    saveUndoState();
     _isDrawing = true;
     const p = pos(e);
     _ctx.beginPath();
@@ -291,7 +309,16 @@ function initCanvas() {
   canvas.addEventListener('mouseleave', stopDraw);
   canvas.addEventListener('touchstart', startDraw, { passive: false });
   canvas.addEventListener('touchmove',  draw,      { passive: false });
-  canvas.addEventListener('touchend',   stopDraw);
+canvas.addEventListener('touchend',   stopDraw);
+
+  canvas.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    openDrawMenu();
+  });
+
+  canvas.addEventListener('dblclick', () => {
+    openDrawMenu();
+  });
 }
 
 function setColor(c, el) {
@@ -299,7 +326,7 @@ function setColor(c, el) {
   _isEraser  = false;
   document.getElementById('eraserBtn').classList.remove('eraser-on');
   document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-  el.classList.add('active');
+  if (el) el.classList.add('active');
 }
 
 function toggleEraser() {
@@ -312,6 +339,22 @@ function clearCanvas() {
   const c = document.getElementById('drawCanvas');
   _ctx.fillStyle = '#ffffff';
   _ctx.fillRect(0, 0, c.width, c.height);
+}
+function openDrawMenu() {
+  document.getElementById('drawMenu').classList.add('open');
+  document.getElementById('drawMenuBackdrop').classList.add('open');
+}
+
+function closeDrawMenu() {
+  document.getElementById('drawMenu').classList.remove('open');
+  document.getElementById('drawMenuBackdrop').classList.remove('open');
+}
+
+function setMenuBrush(size) {
+  document.getElementById('brushSize').value = size;
+  _isEraser = false;
+  document.getElementById('eraserBtn').classList.remove('eraser-on');
+  closeDrawMenu();
 }
 
 async function submitDrawing() {

@@ -198,26 +198,61 @@
       <div class="canvas-wrap">
         <canvas id="drawCanvas" width="660" height="240"></canvas>
       </div>
-      <div class="canvas-tools">
-        <div class="color-dot active" style="background:#c97b8c" onclick="setColor('#c97b8c',this)"></div>
-        <div class="color-dot" style="background:#c9a96e" onclick="setColor('#c9a96e',this)"></div>
-        <div class="color-dot" style="background:#8a3f52" onclick="setColor('#8a3f52',this)"></div>
-        <div class="color-dot" style="background:#6e9e82" onclick="setColor('#6e9e82',this)"></div>
-        <div class="color-dot" style="background:#7590bf" onclick="setColor('#7590bf',this)"></div>
-        <div class="color-dot" style="background:#3d2630" onclick="setColor('#3d2630',this)"></div>
-        <div class="color-dot" style="background:#f9edf0;border:1px solid #ddd" onclick="setColor('#f9edf0',this)"></div>
-        <div class="brush-wrap">
-          <svg width="10" height="10"><circle cx="5" cy="5" r="2.5" fill="#c97b8c"/></svg>
-          <input type="range" min="2" max="22" value="5" id="brushSize">
-          <svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#c97b8c"/></svg>
-        </div>
-        <button class="tool-btn" id="eraserBtn" onclick="toggleEraser()">
-          <span data-en>Eraser</span><span data-ar>ممحاة</span>
-        </button>
-        <button class="tool-btn" onclick="clearCanvas()">
-          <span data-en>Clear</span><span data-ar>مسح</span>
-        </button>
-      </div>
+      <div class="canvas-toolbar">
+  <div class="toolbar-row">
+    <div class="color-dot active" style="background:#c97b8c" onclick="setColor('#c97b8c',this)"></div>
+    <div class="color-dot" style="background:#c9a96e" onclick="setColor('#c9a96e',this)"></div>
+    <div class="color-dot" style="background:#8a3f52" onclick="setColor('#8a3f52',this)"></div>
+    <div class="color-dot" style="background:#6e9e82" onclick="setColor('#6e9e82',this)"></div>
+    <div class="color-dot" style="background:#7590bf" onclick="setColor('#7590bf',this)"></div>
+    <div class="color-dot" style="background:#3d2630" onclick="setColor('#3d2630',this)"></div>
+    <div class="color-dot" style="background:#fff;border:1px solid #ddd" onclick="setColor('#fff',this)"></div>
+  </div>
+  <div class="toolbar-row">
+    <div class="brush-wrap">
+      <svg width="10" height="10"><circle cx="5" cy="5" r="2.5" fill="#c97b8c"/></svg>
+      <input type="range" min="2" max="22" value="5" id="brushSize">
+      <svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#c97b8c"/></svg>
+    </div>
+    <button class="tool-btn" id="eraserBtn" onclick="toggleEraser()">
+      <span data-en>✏️ Eraser</span><span data-ar>ممحاة</span>
+    </button>
+    <button class="tool-btn" onclick="undoCanvas()">
+      <span data-en>↩ Undo</span><span data-ar>تراجع</span>
+    </button>
+    <button class="tool-btn" onclick="clearCanvas()">
+      <span data-en>🗑 Clear</span><span data-ar>مسح</span>
+    </button>
+  </div>
+</div>
+
+<!-- Floating drawing menu (opens on canvas click) -->
+<div class="draw-menu" id="drawMenu">
+  <div class="draw-menu-title">
+    <span data-en>Quick Tools</span><span data-ar>أدوات سريعة</span>
+  </div>
+  <div class="draw-menu-row">
+    <button class="draw-menu-btn" onclick="setMenuBrush(4)">🖊 Small</button>
+    <button class="draw-menu-btn" onclick="setMenuBrush(10)">🖊 Medium</button>
+    <button class="draw-menu-btn" onclick="setMenuBrush(20)">🖊 Large</button>
+  </div>
+  <div class="draw-menu-row">
+    <button class="draw-menu-btn" onclick="toggleEraser();closeDrawMenu()">✏️ Eraser</button>
+    <button class="draw-menu-btn" onclick="undoCanvas();closeDrawMenu()">↩ Undo</button>
+    <button class="draw-menu-btn" onclick="clearCanvas();closeDrawMenu()">🗑 Clear</button>
+  </div>
+  <div class="draw-menu-colors">
+    <div class="menu-color" style="background:#c97b8c" onclick="setColor('#c97b8c',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#c9a96e" onclick="setColor('#c9a96e',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#8a3f52" onclick="setColor('#8a3f52',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#6e9e82" onclick="setColor('#6e9e82',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#7590bf" onclick="setColor('#7590bf',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#3d2630" onclick="setColor('#3d2630',null);closeDrawMenu()"></div>
+    <div class="menu-color" style="background:#fff;border:1px solid #ddd" onclick="setColor('#fff',null);closeDrawMenu()"></div>
+  </div>
+  <button class="draw-menu-close" onclick="closeDrawMenu()">✕ Close</button>
+</div>
+<div class="draw-menu-backdrop" id="drawMenuBackdrop" onclick="closeDrawMenu()"></div>
       <div class="action-row" style="margin-top:1rem;">
         <button class="submit-btn" id="drawBtn" onclick="submitDrawing()">
           <span data-en>Submit Drawing</span><span data-ar>أرسل الرسمة</span>
