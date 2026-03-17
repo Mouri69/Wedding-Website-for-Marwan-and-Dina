@@ -36,6 +36,33 @@ function setLang(lang) {
 }
 
 /* ──────────────────────────────────────────
+   GUEST NAME — saved once, used everywhere
+────────────────────────────────────────── */
+let _guestName = '';
+
+function saveName() {
+  const input = document.getElementById('guestName');
+  const name  = input.value.trim();
+  const fb    = document.getElementById('nameFeedback');
+  const ar    = document.body.classList.contains('arabic');
+
+  if (!name) {
+    fb.textContent = ar ? 'رجاءً أدخل اسمك' : 'Please enter your name';
+    return;
+  }
+
+  _guestName = name;
+  fb.textContent = ar
+    ? `أهلاً ${name}! 🌸`
+    : `Welcome, ${name}! 🌸`;
+
+  // Scroll to next card smoothly
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.card');
+    if (cards[1]) cards[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 600);
+}
+/* ──────────────────────────────────────────
    FLOATING PETALS
 ────────────────────────────────────────── */
 const PETAL_COLORS = ['#f9d0da','#f2d4da','#fce8ee','#f5c6d0','#e8a0b0'];
@@ -124,16 +151,16 @@ function startCountdown() {
    RSVP
 ────────────────────────────────────────── */
 async function submitRsvp(answer, btn) {
-  const name = document.getElementById('rsvpName').value.trim();
-  const fb   = document.getElementById('rsvpFeedback');
-  const ar   = document.body.classList.contains('arabic');
+  const name = _guestName;
+const fb   = document.getElementById('rsvpFeedback');
+const ar   = document.body.classList.contains('arabic');
 
-  if (!name) {
-    fb.textContent = ar
-      ? 'رجاءً أدخل اسمك أولاً'
-      : 'Please enter your name first';
-    return;
-  }
+if (!name) {
+  fb.textContent = ar
+    ? 'رجاءً أدخل اسمك أولاً في الأعلى'
+    : 'Please enter your name at the top first';
+  return;
+}
 
   document.querySelectorAll('.rsvp-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
@@ -194,8 +221,8 @@ function renderMessages(msgs) {
 }
 
 async function submitMessage() {
-  const name = document.getElementById('msgName').value.trim();
-  const text = document.getElementById('msgText').value.trim();
+  const name = _guestName;
+const text = document.getElementById('msgText').value.trim();
   const btn  = document.getElementById('msgBtn');
   const ok   = document.getElementById('msgOk');
 
@@ -288,16 +315,16 @@ function clearCanvas() {
 }
 
 async function submitDrawing() {
-  const name = document.getElementById('drawName').value.trim();
+const name = _guestName;
   const btn  = document.getElementById('drawBtn');
   const ok   = document.getElementById('drawOk');
 
   if (!name) {
-    alert(document.body.classList.contains('arabic')
-      ? 'رجاءً أدخل اسمك'
-      : 'Please enter your name first');
-    return;
-  }
+  alert(document.body.classList.contains('arabic')
+    ? 'رجاءً أدخل اسمك في الأعلى أولاً'
+    : 'Please enter your name at the top first');
+  return;
+}
 
   const canvas     = document.getElementById('drawCanvas');
   const image_data = canvas.toDataURL('image/png');

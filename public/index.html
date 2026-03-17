@@ -62,7 +62,6 @@
   <div class="burst-ring" id="burstRing"></div>
   <div class="opening-names">
     Marwan <span class="amp-gold">&amp;</span> Dina
-    <span class="opening-ar">مروان &amp; دينا</span>
   </div>
 </div>
 
@@ -74,39 +73,32 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-img-wrap">
-      <!--
-        TO USE YOUR OWN PHOTO:
-        1. Put your photo (e.g. photo.jpg) inside the /public folder
-        2. Delete the <svg> below and replace with:
-           <img src="/photo.jpg" alt="Marwan & Dina">
-      -->
-        <img src="wedding2.jpeg" alt="Marwan & Dina" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.72);">        <defs>
-          <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f5c6d0"/>
-            <stop offset="45%" stop-color="#e8a0b0"/>
-            <stop offset="100%" stop-color="#c97b8c"/>
-          </linearGradient>
-        </defs>
-        <rect width="860" height="484" fill="url(#hg)"/>
-        <circle cx="80"  cy="70"  r="65" fill="#fce8ee" opacity="0.25"/>
-        <circle cx="780" cy="414" r="80" fill="#fce8ee" opacity="0.25"/>
-        <circle cx="100" cy="380" r="55" fill="#f9d0da" opacity="0.18"/>
-        <circle cx="760" cy="80"  r="50" fill="#f9d0da" opacity="0.18"/>
-        <text x="430" y="226" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" fill="rgba(255,255,255,0.5)" font-style="italic">Your photo here · صورتكما هنا</text>
-        <text x="430" y="254" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" letter-spacing="3">PLACE PHOTO IN /public AND UPDATE index.html</text>
-      </svg>
+      <img src="wedding2.jpeg" alt="Marwan & Dina" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.72);">
     </div>
     <div class="hero-vignette"></div>
     <div class="hero-names">
-        <h1>Marwan</h1>
-        <h1 class="amp">&amp;</h1>
-        <h1>Dina</h1>    
+      <h1>Marwan</h1>
+      <h1 class="amp">&amp;</h1>
+      <h1>Dina</h1>
     </div>
   </div>
 
   <div class="inv-container">
 
-    <!-- DATE + COUNTDOWN -->
+    <!-- GUEST NAME -->
+    <div class="card" style="--delay:0s">
+      <div class="card-title"><span data-en>Welcome, what's your name?</span><span data-ar>أهلاً، ما اسمك؟</span></div>
+      <div class="card-sub"><span data-en>We'll use it across the invitation</span><span data-ar>سنستخدمه في كل أقسام الدعوة</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <input class="guest-input" id="guestName" type="text" placeholder="Your name · اسمك" style="margin-bottom:0;flex:1;"/>
+        <button class="submit-btn" onclick="saveName()">
+          <span data-en>Continue</span><span data-ar>متابعة</span>
+        </button>
+      </div>
+      <div class="rsvp-feedback" id="nameFeedback"></div>
+    </div>
+
+    <!-- DATE + COUNTDOWN + MAP -->
     <div class="card" style="--delay:0.1s">
       <div class="dl-grid">
         <div class="dl-item">
@@ -118,7 +110,9 @@
           <div class="val"><span data-en>Tanta, Egypt</span><span data-ar>طنطا، مصر</span></div>
         </div>
       </div>
+
       <div class="divider">✦ &nbsp;✦ &nbsp;✦</div>
+
       <p class="countdown-label">
         <span data-en>Counting down to our big day</span>
         <span data-ar>العد التنازلي ليومنا المميز</span>
@@ -129,13 +123,28 @@
         <div class="cd-box"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl"><span data-en>Minutes</span><span data-ar>دقائق</span></span></div>
         <div class="cd-box"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl"><span data-en>Seconds</span><span data-ar>ثواني</span></span></div>
       </div>
+
+      <div class="divider" style="margin-top:1.4rem;">✦ &nbsp;✦ &nbsp;✦</div>
+      <p class="countdown-label" style="margin-bottom:.8rem;">
+        <span data-en>Wedding Venue</span><span data-ar>قاعة الأفراح</span>
+      </p>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55215.78!2d30.9985!3d30.7987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7c3d8b3b3b3b3%3A0x1234567890abcdef!2sTanta%2C+Egypt!5e0!3m2!1sen!2seg!4v1234567890"
+          width="100%"
+          height="220"
+          style="border:0;border-radius:12px;display:block;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
     </div>
 
     <!-- RSVP -->
     <div class="card" style="--delay:0.2s">
       <div class="card-title"><span data-en>Will you attend?</span><span data-ar>هل ستحضر؟</span></div>
       <div class="card-sub"><span data-en>Let us know — your answer is saved</span><span data-ar>أخبرنا — سيتم حفظ إجابتك</span></div>
-      <input class="guest-input" id="rsvpName" type="text" placeholder="Your name · اسمك"/>
       <div class="rsvp-btns">
         <button class="rsvp-btn" onclick="submitRsvp('yes',this)">
           <span class="icon">🎉</span>
@@ -157,7 +166,6 @@
     <div class="card" style="--delay:0.3s">
       <div class="card-title"><span data-en>Write a message</span><span data-ar>اكتب رسالة</span></div>
       <div class="card-sub"><span data-en>Share your wishes with Marwan &amp; Dina</span><span data-ar>شارك أمنياتك مع مروان ودينا</span></div>
-      <input class="guest-input" id="msgName" type="text" placeholder="Your name · اسمك" style="margin-bottom:10px;"/>
       <textarea class="msg-textarea" id="msgText" placeholder="Write your heartfelt message... · اكتب رسالتك هنا..."></textarea>
       <div class="action-row">
         <button class="submit-btn" id="msgBtn" onclick="submitMessage()">
@@ -183,7 +191,6 @@
     <div class="card" style="--delay:0.4s">
       <div class="card-title"><span data-en>Draw something for us</span><span data-ar>ارسم لنا شيئاً</span></div>
       <div class="card-sub"><span data-en>Saved forever — guests vote for their favourites</span><span data-ar>ستُحفظ للأبد — ويصوّت الضيوف على المفضلة</span></div>
-      <input class="guest-input" id="drawName" type="text" placeholder="Your name · اسمك" style="margin-bottom:10px;"/>
       <div class="canvas-wrap">
         <canvas id="drawCanvas" width="660" height="240"></canvas>
       </div>

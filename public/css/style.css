@@ -745,3 +745,18 @@ body.arabic .lang-toggle { right: auto; left: 1.1rem; }
   .hero-names h1 { font-size: 2.4rem; }
   .gallery-grid  { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* MAP */
+.map-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid var(--card-border);
+  margin-top: .4rem;
+}
+
+.map-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+}
