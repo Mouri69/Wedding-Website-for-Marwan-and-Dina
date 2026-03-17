@@ -195,9 +195,16 @@
     <div class="card" style="--delay:0.4s">
       <div class="card-title"><span data-en>Draw something for us</span><span data-ar>ارسم لنا شيئاً</span></div>
       <div class="card-sub"><span data-en>Saved forever — guests vote for their favourites</span><span data-ar>ستُحفظ للأبد — ويصوّت الضيوف على المفضلة</span></div>
-      <div class="canvas-wrap">
-        <canvas id="drawCanvas" width="660" height="240"></canvas>
-      </div>
+      <div class="canvas-wrap" style="position:relative;">
+  <canvas id="drawCanvas" width="660" height="240"></canvas>
+  <button class="fs-open-btn" onclick="openFullscreen()" title="Fullscreen">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/>
+      <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+    </svg>
+    <span data-en>Fullscreen</span><span data-ar>ملء الشاشة</span>
+  </button>
+</div>
       <div class="canvas-toolbar">
   <div class="toolbar-row">
     <div class="color-dot active" style="background:#c97b8c" onclick="setColor('#c97b8c',this)"></div>
@@ -302,6 +309,57 @@
     <p id="modalAuthor"></p>
   </div>
 </div>
+
+<!-- FULLSCREEN CANVAS MODAL -->
+<div class="fs-modal" id="fsModal">
+  <div class="fs-header">
+    <span class="fs-title">
+      <span data-en>🎨 Draw for Marwan & Dina</span>
+      <span data-ar>🎨 ارسم لمروان ودينا</span>
+    </span>
+    <div class="fs-header-btns">
+      <button class="fs-done-btn" onclick="applyFullscreenDrawing()">
+        <span data-en>✓ Done</span><span data-ar>✓ تم</span>
+      </button>
+      <button class="fs-x-btn" onclick="closeFullscreen()">✕</button>
+    </div>
+  </div>
+
+  <div class="fs-body">
+    <canvas id="fsCanvas"></canvas>
+  </div>
+
+  <div class="fs-toolbar">
+    <!-- Colors -->
+    <div class="fs-colors">
+      <div class="color-dot active" style="background:#c97b8c" onclick="setFsColor('#c97b8c',this)"></div>
+      <div class="color-dot" style="background:#c9a96e" onclick="setFsColor('#c9a96e',this)"></div>
+      <div class="color-dot" style="background:#8a3f52" onclick="setFsColor('#8a3f52',this)"></div>
+      <div class="color-dot" style="background:#6e9e82" onclick="setFsColor('#6e9e82',this)"></div>
+      <div class="color-dot" style="background:#7590bf" onclick="setFsColor('#7590bf',this)"></div>
+      <div class="color-dot" style="background:#3d2630" onclick="setFsColor('#3d2630',this)"></div>
+      <div class="color-dot" style="background:#fff;border:1px solid #ddd" onclick="setFsColor('#fff',this)"></div>
+    </div>
+    <!-- Brush + tools -->
+    <div class="fs-tools">
+      <div class="brush-wrap">
+        <svg width="10" height="10"><circle cx="5" cy="5" r="2.5" fill="#c97b8c"/></svg>
+        <input type="range" min="2" max="22" value="5" id="fsBrushSize">
+        <svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#c97b8c"/></svg>
+      </div>
+      <button class="tool-btn" id="fsEraserBtn" onclick="toggleFsEraser()">
+        <span data-en>✏️ Eraser</span><span data-ar>ممحاة</span>
+      </button>
+      <button class="tool-btn" onclick="fsClearCanvas()">
+        <span data-en>🗑 Clear</span><span data-ar>مسح</span>
+      </button>
+      <button class="tool-btn" onclick="fsUndoCanvas()">
+        <span data-en>↩ Undo</span><span data-ar>تراجع</span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="fs-backdrop" id="fsBackdrop"></div>
 
 <script src="/js/app.js"></script>
 </body>
