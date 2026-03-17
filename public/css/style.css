@@ -766,3 +766,51 @@ body.arabic .lang-toggle { right: auto; left: 1.1rem; }
   height: 220px;
   border: 0;
 }
+
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(.85rem, 2vw, 1.1rem);
+  font-weight: 400;
+  font-style: italic;
+  color: #fff;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  margin-bottom: .6rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.hero-tagline-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: clamp(.85rem, 2vw, 1rem);
+  color: #fff;
+  letter-spacing: .05em;
+  margin-bottom: .4rem;
+  display: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.hero-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  color: #f5e6cc;
+  letter-spacing: .2em;
+  margin-top: .7rem;
+  font-style: italic;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.hero-date-ar {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: clamp(.9rem, 2vw, 1.2rem);
+  color: #f5e6cc;
+  letter-spacing: .05em;
+  margin-top: .3rem;
+  display: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.8);
+}
+
+body.arabic .hero-tagline    { display: none; }
+body.arabic .hero-tagline-ar { display: block; }
+body.arabic .hero-date       { display: none; }
+body.arabic .hero-date-ar    { display: block; }
