@@ -317,10 +317,16 @@ body.arabic .lang-toggle { right: auto; left: 1.1rem; }
 
 /* DATE / LOCATION */
 .dl-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 1.4rem;
   margin-bottom: 1.2rem;
+}
+
+.dl-item {
+  flex: 1;
+  text-align: center;
 }
 .dl-item label {
   display: block;
@@ -741,7 +747,7 @@ body.arabic .lang-toggle { right: auto; left: 1.1rem; }
 @media (max-width: 560px) {
   .card          { padding: 1.4rem 1.1rem; }
   .cd-num        { font-size: 2rem; }
-  .dl-grid       { grid-template-columns: 1fr; gap: 1rem; }
+.dl-grid { flex-direction: column; gap: 1rem; }
   .hero-names h1 { font-size: 2.4rem; }
   .gallery-grid  { grid-template-columns: repeat(2, 1fr); }
 }

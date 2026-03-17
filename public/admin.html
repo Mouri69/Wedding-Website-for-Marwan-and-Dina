@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Marwan & Dina</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --rose:       #c97b8c;
+    --rose-dark:  #8a3f52;
+    --rose-light: #f2d4da;
+    --blush:      #f9edf0;
+    --gold:       #c9a96e;
+    --cream:      #fdf8f5;
+    --text-dark:  #3d2630;
+    --text-mid:   #7a5060;
+    --text-soft:  #b08898;
+    --green:      #6e9e82;
+    --red:        #e07070;
+    --yellow:     #e0b84a;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN ── */
+  #loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(155deg, #fdf0f3 0%, #fdf8f5 50%, #f8efe8 100%);
+  }
+
+  .login-box {
+    background: rgba(255,255,255,0.85);
+    border: 0.5px solid rgba(201,121,140,0.25);
+    border-radius: 20px;
+    padding: 2.5rem 2.2rem;
+    width: 100%;
+    max-width: 380px;
+    backdrop-filter: blur(8px);
+    text-align: center;
+  }
+
+  .login-box h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--rose-dark);
+    margin-bottom: .3rem;
+  }
+
+  .login-box p {
+    font-size: .75rem;
+    color: var(--text-soft);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+  }
+
+  .login-input {
+    width: 100%;
+    padding: .7rem 1rem;
+    border: 0.5px solid rgba(201,121,140,.35);
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .85rem;
+    color: var(--text-dark);
+    background: rgba(253,240,243,.5);
+    outline: none;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: .15em;
+  }
+  .login-input:focus { border-color: var(--rose); }
+
+  .login-btn {
+    width: 100%;
+    padding: .8rem;
+    background: var(--rose);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .78rem;
+    letter-spacing: .14em;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .login-btn:hover { background: var(--rose-dark); }
+
+  .login-error {
+    margin-top: .8rem;
+    font-size: .8rem;
+    color: var(--red);
+    min-height: 1.2rem;
+  }
+
+  /* ── DASHBOARD ── */
+  #dashboard { display: none; }
+
+  .dash-header {
+    background: rgba(255,255,255,0.9);
+    border-bottom: 0.5px solid rgba(201,121,140,.2);
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+
+  .dash-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--rose-dark);
+  }
+
+  .dash-header span {
+    font-size: .7rem;
+    color: var(--text-soft);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .logout-btn {
+    padding: .4rem 1rem;
+    border: 0.5px solid rgba(201,121,140,.35);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-mid);
+    font-size: .72rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .logout-btn:hover { background: var(--rose-light); }
+
+  .dash-body {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* ── STAT CARDS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.8);
+    border: 0.5px solid rgba(201,121,140,.2);
+    border-radius: 16px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-lbl {
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--text-soft);
+    margin-top: 5px;
+    display: block;
+  }
+
+  .stat-yes    .stat-num { color: var(--green); }
+  .stat-maybe  .stat-num { color: var(--yellow); }
+  .stat-no     .stat-num { color: var(--red); }
+  .stat-total  .stat-num { color: var(--rose-dark); }
+  .stat-msg    .stat-num { color: var(--gold); }
+  .stat-draw   .stat-num { color: var(--rose); }
+
+  /* ── SECTION ── */
+  .section {
+    background: rgba(255,255,255,0.8);
+    border: 0.5px solid rgba(201,121,140,.2);
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--rose-dark);
+    margin-bottom: .3rem;
+  }
+
+  .section-sub {
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    color: var(--text-soft);
+    margin-bottom: 1.4rem;
+  }
+
+  /* ── RSVP TABLE ── */
+  .rsvp-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .rsvp-table th {
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--text-soft);
+    padding: .5rem .8rem;
+    text-align: left;
+    border-bottom: 0.5px solid rgba(201,121,140,.2);
+  }
+
+  .rsvp-table td {
+    padding: .75rem .8rem;
+    font-size: .85rem;
+    border-bottom: 0.5px solid rgba(201,121,140,.1);
+    color: var(--text-dark);
+  }
+
+  .rsvp-table tr:last-child td { border-bottom: none; }
+  .rsvp-table tr:hover td { background: var(--blush); }
+
+  .badge {
+    display: inline-block;
+    padding: .25rem .75rem;
+    border-radius: 20px;
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+  }
+  .badge-yes   { background: rgba(110,158,130,.15); color: var(--green); }
+  .badge-maybe { background: rgba(224,184,74,.15);  color: #b8923a; }
+  .badge-no    { background: rgba(224,112,112,.15); color: var(--red); }
+
+  /* ── MESSAGE CARDS ── */
+  .msg-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .msg-card {
+    background: var(--blush);
+    border: 0.5px solid rgba(201,121,140,.2);
+    border-radius: 14px;
+    padding: .9rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .msg-card-body { flex: 1; }
+
+  .msg-card-author {
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--rose);
+    margin-bottom: 4px;
+  }
+
+  .msg-card-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+
+  .msg-card-date {
+    font-size: .62rem;
+    color: var(--text-soft);
+    margin-top: 5px;
+  }
+
+  /* ── DRAWING GALLERY ── */
+  .draw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .draw-card {
+    border: 0.5px solid rgba(201,121,140,.2);
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+  }
+
+  .draw-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .draw-card-meta {
+    padding: .6rem .8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .draw-card-author {
+    font-size: .65rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .draw-votes {
+    font-size: .72rem;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  /* ── DELETE BUTTON ── */
+  .delete-btn {
+    padding: .3rem .7rem;
+    border: 0.5px solid rgba(224,112,112,.4);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--red);
+    font-size: .68rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: all .18s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .delete-btn:hover { background: rgba(224,112,112,.1); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--text-soft);
+    font-size: 1rem;
+  }
+
+  /* ── SPINNER ── */
+  .spinner {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(201,121,140,.3);
+    border-top-color: var(--rose);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 2rem auto;
+    display: block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: .4rem 1.1rem;
+    border: 0.5px solid rgba(201,121,140,.35);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-mid);
+    font-size: .72rem;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: .08em;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .tab-btn.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+  @media (max-width: 560px) {
+    .dash-body   { padding: 1.2rem 1rem 3rem; }
+    .section     { padding: 1.4rem 1.1rem; }
+    .dash-header { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Admin Panel</h1>
+    <p>Marwan &amp; Dina · Wedding</p>
+    <input
+      class="login-input"
+      id="passwordInput"
+      type="password"
+      placeholder="Enter password"
+      onkeydown="if(event.key==='Enter') login()"
+    />
+    <button class="login-btn" onclick="login()">Enter</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="dashboard">
+
+  <div class="dash-header">
+    <div>
+      <h1>Wedding Dashboard</h1>
+      <span>Marwan &amp; Dina · March 17, 2027</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">Log out</button>
+  </div>
+
+  <div class="dash-body">
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- RSVP LIST -->
+    <div class="section">
+      <div class="section-title">Guest List</div>
+      <div class="section-sub">Everyone who responded to the invitation</div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="filterRsvp('all', this)">All</button>
+        <button class="tab-btn" onclick="filterRsvp('yes', this)">✅ Attending</button>
+        <button class="tab-btn" onclick="filterRsvp('maybe', this)">🤞 Maybe</button>
+        <button class="tab-btn" onclick="filterRsvp('no', this)">❌ Can't make it</button>
+      </div>
+      <div id="rsvpList"><div class="spinner"></div></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="section">
+      <div class="section-title">Guest Messages</div>
+      <div class="section-sub">All wishes sent to the couple</div>
+      <div class="msg-list" id="msgList"><div class="spinner"></div></div>
+    </div>
+
+    <!-- DRAWINGS -->
+    <div class="section">
+      <div class="section-title">Guest Drawings</div>
+      <div class="section-sub">All artwork sorted by votes</div>
+      <div class="draw-grid" id="drawGrid"><div class="spinner"></div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let _password = '';
+  let _rsvps    = [];
+  let _rsvpFilter = 'all';
+
+  /* ── LOGIN ── */
+  async function login() {
+    const pw  = document.getElementById('passwordInput').value.trim();
+    const err = document.getElementById('loginError');
+    if (!pw) return;
+
+    try {
+      const res  = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+
+      _password = pw;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display   = 'block';
+      loadAll();
+    } catch(e) {
+      err.textContent = '❌ Wrong password, try again';
+    }
+  }
+
+  function logout() {
+    _password = '';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashboard').style.display   = 'none';
+    document.getElementById('passwordInput').value = '';
+  }
+
+  /* ── LOAD ALL DATA ── */
+  async function loadAll() {
+    await Promise.all([ loadRsvps(), loadMessages(), loadDrawings() ]);
+  }
+
+  /* ── RSVPs ── */
+  async function loadRsvps() {
+    const res  = await fetch(`/api/admin/rsvps?password=${_password}`);
+    _rsvps     = await res.json();
+    renderStats(_rsvps);
+    renderRsvps(_rsvps);
+  }
+
+  function renderStats(rsvps) {
+    const yes   = rsvps.filter(r => r.answer === 'yes').length;
+    const maybe = rsvps.filter(r => r.answer === 'maybe').length;
+    const no    = rsvps.filter(r => r.answer === 'no').length;
+    const total = rsvps.length;
+
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-box stat-total">
+        <span class="stat-num">${total}</span>
+        <span class="stat-lbl">Total Responses</span>
+      </div>
+      <div class="stat-box stat-yes">
+        <span class="stat-num">${yes}</span>
+        <span class="stat-lbl">Attending ✅</span>
+      </div>
+      <div class="stat-box stat-maybe">
+        <span class="stat-num">${maybe}</span>
+        <span class="stat-lbl">Maybe 🤞</span>
+      </div>
+      <div class="stat-box stat-no">
+        <span class="stat-num">${no}</span>
+        <span class="stat-lbl">Can't Make It ❌</span>
+      </div>
+    `;
+  }
+
+  function filterRsvp(filter, btn) {
+    _rsvpFilter = filter;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderRsvps(_rsvps);
+  }
+
+  function renderRsvps(rsvps) {
+    const list     = document.getElementById('rsvpList');
+    const filtered = _rsvpFilter === 'all'
+      ? rsvps
+      : rsvps.filter(r => r.answer === _rsvpFilter);
+
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty-state">No responses yet</div>';
+      return;
+    }
+
+    list.innerHTML = `
+      <table class="rsvp-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Response</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filtered.map(r => `
+            <tr>
+              <td>${esc(r.name)}</td>
+              <td><span class="badge badge-${r.answer}">${
+                r.answer === 'yes'   ? '✅ Attending' :
+                r.answer === 'maybe' ? '🤞 Maybe'     : '❌ Can\'t make it'
+              }</span></td>
+              <td style="color:var(--text-soft);font-size:.78rem;">${formatDate(r.created_at)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  /* ── MESSAGES ── */
+  async function loadMessages() {
+    const res  = await fetch(`/api/admin/messages?password=${_password}`);
+    const msgs = await res.json();
+    renderMessages(msgs);
+  }
+
+  function renderMessages(msgs) {
+    const list = document.getElementById('msgList');
+    if (!msgs.length) {
+      list.innerHTML = '<div class="empty-state">No messages yet</div>';
+      return;
+    }
+    list.innerHTML = msgs.map(m => `
+      <div class="msg-card" id="msg-${m.id}">
+        <div class="msg-card-body">
+          <div class="msg-card-author">${esc(m.name)}</div>
+          <div class="msg-card-text">${esc(m.message)}</div>
+          <div class="msg-card-date">${formatDate(m.created_at)}</div>
+        </div>
+        <button class="delete-btn" onclick="deleteMessage(${m.id})">🗑 Delete</button>
+      </div>
+    `).join('');
+  }
+
+  async function deleteMessage(id) {
+    if (!confirm('Delete this message? This cannot be undone.')) return;
+    await fetch(`/api/admin/messages/${id}?password=${_password}`, { method: 'DELETE' });
+    document.getElementById(`msg-${id}`)?.remove();
+    await loadRsvps(); // refresh stats
+  }
+
+  /* ── DRAWINGS ── */
+  async function loadDrawings() {
+    const res   = await fetch(`/api/admin/drawings?password=${_password}`);
+    const draws = await res.json();
+    renderDrawings(draws);
+  }
+
+  function renderDrawings(draws) {
+    const grid = document.getElementById('drawGrid');
+    if (!draws.length) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">No drawings yet</div>';
+      return;
+    }
+    grid.innerHTML = draws.map(d => `
+      <div class="draw-card" id="draw-${d.id}">
+        <img src="${d.image_data}" alt="${esc(d.name)}"/>
+        <div class="draw-card-meta">
+          <span class="draw-card-author">${esc(d.name)}</span>
+          <span class="draw-votes">♥ ${d.votes || 0}</span>
+        </div>
+        <div style="padding:0 .8rem .8rem;">
+          <button class="delete-btn" style="width:100%;" onclick="deleteDrawing(${d.id})">🗑 Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function deleteDrawing(id) {
+    if (!confirm('Delete this drawing? This cannot be undone.')) return;
+    await fetch(`/api/admin/drawings/${id}?password=${_password}`, { method: 'DELETE' });
+    document.getElementById(`draw-${id}`)?.remove();
+  }
+
+  /* ── UTILS ── */
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+</script>
+</body>
+</html>
