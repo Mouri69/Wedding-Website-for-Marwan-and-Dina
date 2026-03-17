@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Marwan & Dina — Wedding Invitation | دعوة زفاف مروان ودينا</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<!-- ── LANGUAGE TOGGLE ── -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" id="btnAr" onclick="setLang('ar')">عربي</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ENVELOPE SCENE
+══════════════════════════════════════════ -->
+<div id="envelope-scene" onclick="openEnvelope()">
+  <div class="petal-bg" id="petalBg"></div>
+  <div class="env-wrap">
+    <svg class="env-svg" width="300" height="210" viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg">
+      <rect x="12" y="68" width="276" height="134" rx="10" fill="#fff" stroke="#c9a96e" stroke-width="1"/>
+      <path d="M12,68 L150,140 L288,68 Z" fill="#fce8ee" stroke="#c9a96e" stroke-width="0.8"/>
+      <path d="M12,68 L12,202 L150,140 Z" fill="#f7dce4" stroke="#c9a96e" stroke-width="0.5"/>
+      <path d="M288,68 L288,202 L150,140 Z" fill="#f7dce4" stroke="#c9a96e" stroke-width="0.5"/>
+      <path d="M12,202 L288,202 L150,140 Z" fill="#fef5f7" stroke="#c9a96e" stroke-width="0.5"/>
+      <circle cx="150" cy="140" r="26" fill="#c9a96e"/>
+      <circle cx="150" cy="140" r="22" fill="#b8935a"/>
+      <text x="150" y="146" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="15" font-weight="600" fill="#fff" letter-spacing="2">M&amp;D</text>
+      <g opacity="0.9">
+        <circle cx="46" cy="92" r="9" fill="#f2d4da"/>
+        <circle cx="46" cy="92" r="5" fill="#c97b8c"/>
+        <circle cx="38" cy="86" r="5" fill="#f2d4da"/>
+        <circle cx="54" cy="86" r="5" fill="#f2d4da"/>
+        <circle cx="42" cy="100" r="4" fill="#f2d4da"/>
+        <circle cx="50" cy="100" r="4" fill="#f2d4da"/>
+      </g>
+      <g opacity="0.9">
+        <circle cx="254" cy="92" r="9" fill="#f2d4da"/>
+        <circle cx="254" cy="92" r="5" fill="#c97b8c"/>
+        <circle cx="246" cy="86" r="5" fill="#f2d4da"/>
+        <circle cx="262" cy="86" r="5" fill="#f2d4da"/>
+        <circle cx="250" cy="100" r="4" fill="#f2d4da"/>
+        <circle cx="258" cy="100" r="4" fill="#f2d4da"/>
+      </g>
+      <path d="M130,68 Q150,82 170,68" stroke="#c9a96e" stroke-width="1.5" fill="none"/>
+    </svg>
+    <div class="env-hint">
+      <span data-en>Click to open your invitation</span>
+      <span class="ar-hint" data-ar>انقر لفتح دعوتك</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OPENING OVERLAY
+══════════════════════════════════════════ -->
+<div id="opening-overlay">
+  <div class="burst-ring" id="burstRing"></div>
+  <div class="opening-names">
+    Marwan <span class="amp-gold">&amp;</span> Dina
+    <span class="opening-ar">مروان &amp; دينا</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MAIN INVITATION
+══════════════════════════════════════════ -->
+<div id="invitation">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-img-wrap">
+      <!--
+        TO USE YOUR OWN PHOTO:
+        1. Put your photo (e.g. photo.jpg) inside the /public folder
+        2. Delete the <svg> below and replace with:
+           <img src="/photo.jpg" alt="Marwan & Dina">
+      -->
+        <img src="/wedding.jpeg" alt="Marwan & Dina">        <defs>
+          <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5c6d0"/>
+            <stop offset="45%" stop-color="#e8a0b0"/>
+            <stop offset="100%" stop-color="#c97b8c"/>
+          </linearGradient>
+        </defs>
+        <rect width="860" height="484" fill="url(#hg)"/>
+        <circle cx="80"  cy="70"  r="65" fill="#fce8ee" opacity="0.25"/>
+        <circle cx="780" cy="414" r="80" fill="#fce8ee" opacity="0.25"/>
+        <circle cx="100" cy="380" r="55" fill="#f9d0da" opacity="0.18"/>
+        <circle cx="760" cy="80"  r="50" fill="#f9d0da" opacity="0.18"/>
+        <text x="430" y="226" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" fill="rgba(255,255,255,0.5)" font-style="italic">Your photo here · صورتكما هنا</text>
+        <text x="430" y="254" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" letter-spacing="3">PLACE PHOTO IN /public AND UPDATE index.html</text>
+      </svg>
+    </div>
+    <div class="hero-vignette"></div>
+    <div class="hero-names">
+      <h1>Marwan <span class="amp">&amp;</span> Dina</h1>
+      <span class="hero-names-ar">مروان &amp; دينا</span>
+    </div>
+  </div>
+
+  <div class="inv-container">
+
+    <!-- DATE + COUNTDOWN -->
+    <div class="card" style="--delay:0.1s">
+      <div class="dl-grid">
+        <div class="dl-item">
+          <label><span data-en>Wedding Date</span><span data-ar>تاريخ الزفاف</span></label>
+          <div class="val"><span data-en>March 17, 2027</span><span data-ar>١٧ مارس ٢٠٢٧</span></div>
+        </div>
+        <div class="dl-item">
+          <label><span data-en>Location</span><span data-ar>المكان</span></label>
+          <div class="val"><span data-en>Tanta, Egypt</span><span data-ar>طنطا، مصر</span></div>
+        </div>
+      </div>
+      <div class="divider">✦ &nbsp;✦ &nbsp;✦</div>
+      <p class="countdown-label">
+        <span data-en>Counting down to our big day</span>
+        <span data-ar>العد التنازلي ليومنا المميز</span>
+      </p>
+      <div class="cd-grid">
+        <div class="cd-box"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl"><span data-en>Days</span><span data-ar>أيام</span></span></div>
+        <div class="cd-box"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl"><span data-en>Hours</span><span data-ar>ساعات</span></span></div>
+        <div class="cd-box"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl"><span data-en>Minutes</span><span data-ar>دقائق</span></span></div>
+        <div class="cd-box"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl"><span data-en>Seconds</span><span data-ar>ثواني</span></span></div>
+      </div>
+    </div>
+
+    <!-- RSVP -->
+    <div class="card" style="--delay:0.2s">
+      <div class="card-title"><span data-en>Will you attend?</span><span data-ar>هل ستحضر؟</span></div>
+      <div class="card-sub"><span data-en>Let us know — your answer is saved</span><span data-ar>أخبرنا — سيتم حفظ إجابتك</span></div>
+      <input class="guest-input" id="rsvpName" type="text" placeholder="Your name · اسمك"/>
+      <div class="rsvp-btns">
+        <button class="rsvp-btn" onclick="submitRsvp('yes',this)">
+          <span class="icon">🎉</span>
+          <span data-en>Yes, I'll be there!</span><span data-ar>نعم، سأكون هناك!</span>
+        </button>
+        <button class="rsvp-btn" onclick="submitRsvp('maybe',this)">
+          <span class="icon">🤞</span>
+          <span data-en>I hope to make it</span><span data-ar>أتمنى أن أكون هناك</span>
+        </button>
+        <button class="rsvp-btn" onclick="submitRsvp('no',this)">
+          <span class="icon">💔</span>
+          <span data-en>Unfortunately I can't</span><span data-ar>للأسف لن أتمكن</span>
+        </button>
+      </div>
+      <div class="rsvp-feedback" id="rsvpFeedback"></div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="card" style="--delay:0.3s">
+      <div class="card-title"><span data-en>Write a message</span><span data-ar>اكتب رسالة</span></div>
+      <div class="card-sub"><span data-en>Share your wishes with Marwan &amp; Dina</span><span data-ar>شارك أمنياتك مع مروان ودينا</span></div>
+      <input class="guest-input" id="msgName" type="text" placeholder="Your name · اسمك" style="margin-bottom:10px;"/>
+      <textarea class="msg-textarea" id="msgText" placeholder="Write your heartfelt message... · اكتب رسالتك هنا..."></textarea>
+      <div class="action-row">
+        <button class="submit-btn" id="msgBtn" onclick="submitMessage()">
+          <span data-en>Send Wishes</span><span data-ar>أرسل التهاني</span>
+        </button>
+        <span class="inline-success" id="msgOk">
+          <span data-en>💌 Sent! They'll love reading this.</span>
+          <span data-ar>💌 تم! سيسعدهم قراءة رسالتك.</span>
+        </span>
+      </div>
+      <div class="wall-header">
+        <span data-en>Guest Wishes</span><span data-ar>تهاني الضيوف</span>
+      </div>
+      <div class="messages-wall" id="messagesWall">
+        <div class="wall-empty" id="msgEmpty">
+          <span data-en>No messages yet — be the first!</span>
+          <span data-ar>لا رسائل بعد — كن أول من يكتب!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRAWING -->
+    <div class="card" style="--delay:0.4s">
+      <div class="card-title"><span data-en>Draw something for us</span><span data-ar>ارسم لنا شيئاً</span></div>
+      <div class="card-sub"><span data-en>Saved forever — guests vote for their favourites</span><span data-ar>ستُحفظ للأبد — ويصوّت الضيوف على المفضلة</span></div>
+      <input class="guest-input" id="drawName" type="text" placeholder="Your name · اسمك" style="margin-bottom:10px;"/>
+      <div class="canvas-wrap">
+        <canvas id="drawCanvas" width="660" height="240"></canvas>
+      </div>
+      <div class="canvas-tools">
+        <div class="color-dot active" style="background:#c97b8c" onclick="setColor('#c97b8c',this)"></div>
+        <div class="color-dot" style="background:#c9a96e" onclick="setColor('#c9a96e',this)"></div>
+        <div class="color-dot" style="background:#8a3f52" onclick="setColor('#8a3f52',this)"></div>
+        <div class="color-dot" style="background:#6e9e82" onclick="setColor('#6e9e82',this)"></div>
+        <div class="color-dot" style="background:#7590bf" onclick="setColor('#7590bf',this)"></div>
+        <div class="color-dot" style="background:#3d2630" onclick="setColor('#3d2630',this)"></div>
+        <div class="color-dot" style="background:#f9edf0;border:1px solid #ddd" onclick="setColor('#f9edf0',this)"></div>
+        <div class="brush-wrap">
+          <svg width="10" height="10"><circle cx="5" cy="5" r="2.5" fill="#c97b8c"/></svg>
+          <input type="range" min="2" max="22" value="5" id="brushSize">
+          <svg width="10" height="10"><circle cx="5" cy="5" r="4.5" fill="#c97b8c"/></svg>
+        </div>
+        <button class="tool-btn" id="eraserBtn" onclick="toggleEraser()">
+          <span data-en>Eraser</span><span data-ar>ممحاة</span>
+        </button>
+        <button class="tool-btn" onclick="clearCanvas()">
+          <span data-en>Clear</span><span data-ar>مسح</span>
+        </button>
+      </div>
+      <div class="action-row" style="margin-top:1rem;">
+        <button class="submit-btn" id="drawBtn" onclick="submitDrawing()">
+          <span data-en>Submit Drawing</span><span data-ar>أرسل الرسمة</span>
+        </button>
+        <span class="inline-success" id="drawOk">
+          <span data-en>🎨 Beautiful! Saved to gallery.</span>
+          <span data-ar>🎨 رائع! تمّ حفظها في المعرض.</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="card" style="--delay:0.5s">
+      <div class="card-title"><span data-en>Guest Artwork Gallery</span><span data-ar>معرض لوحات الضيوف</span></div>
+      <div class="card-sub"><span data-en>Vote for your favourites — top 5 are crowned</span><span data-ar>صوّت للمفضلة — أفضل ٥ تحصل على التاج</span></div>
+      <div class="gallery-tabs">
+        <button class="gallery-tab active" id="tabTop" onclick="switchTab('top')">
+          <span data-en>⭐ Top 5</span><span data-ar>⭐ أفضل ٥</span>
+        </button>
+        <button class="gallery-tab" id="tabAll" onclick="switchTab('all')">
+          <span data-en>All Drawings</span><span data-ar>جميع الرسومات</span>
+        </button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-empty">
+          <span data-en>No drawings yet — be the first artist!</span>
+          <span data-ar>لا رسومات بعد — كن أول فنان!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="inv-footer">
+      <div class="gold-bar"></div>
+      <p><span data-en>With love, Marwan &amp; Dina</span><span data-ar>بكل محبة، مروان ودينا</span></p>
+      <div class="divider" style="margin:.8rem 0 0">✦ &nbsp;✦ &nbsp;✦</div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- DRAW MODAL -->
+<div class="draw-modal" id="drawModal" onclick="closeModalBg(event)">
+  <div class="draw-modal-inner">
+    <button class="modal-close" onclick="closeDrawModal()">✕</button>
+    <img id="modalImg" src="" alt="Guest drawing"/>
+    <p id="modalAuthor"></p>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
