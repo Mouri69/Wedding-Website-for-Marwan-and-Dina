@@ -47,7 +47,7 @@ function saveName() {
   const ar    = document.body.classList.contains('arabic');
 
   if (!name) {
-    fb.textContent = ar ? 'رجاءً أدخل اسمك' : 'Please enter your name';
+    focusNameField();
     return;
   }
 
@@ -61,6 +61,27 @@ function saveName() {
     const cards = document.querySelectorAll('.card');
     if (cards[1]) cards[1].scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 600);
+}
+
+function focusNameField() {
+  const input = document.getElementById('guestName');
+  const card  = input.closest('.card');
+  const ar    = document.body.classList.contains('arabic');
+
+  // Scroll to name card
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Shake the card to draw attention
+  card.classList.add('shake');
+  setTimeout(() => card.classList.remove('shake'), 600);
+
+  // Focus the input after scroll finishes
+  setTimeout(() => {
+    input.focus();
+    document.getElementById('nameFeedback').textContent = ar
+      ? 'رجاءً أدخل اسمك أولاً 👆'
+      : 'Please enter your name first 👆';
+  }, 500);
 }
 /* ──────────────────────────────────────────
    FLOATING PETALS
@@ -156,9 +177,7 @@ const fb   = document.getElementById('rsvpFeedback');
 const ar   = document.body.classList.contains('arabic');
 
 if (!name) {
-  fb.textContent = ar
-    ? 'رجاءً أدخل اسمك أولاً في الأعلى'
-    : 'Please enter your name at the top first';
+  focusNameField();
   return;
 }
 
@@ -223,6 +242,7 @@ function renderMessages(msgs) {
 async function submitMessage() {
   const name = _guestName;
 const text = document.getElementById('msgText').value.trim();
+if (!name) { focusNameField(); return; }
   const btn  = document.getElementById('msgBtn');
   const ok   = document.getElementById('msgOk');
 
@@ -363,9 +383,7 @@ const name = _guestName;
   const ok   = document.getElementById('drawOk');
 
   if (!name) {
-  alert(document.body.classList.contains('arabic')
-    ? 'رجاءً أدخل اسمك في الأعلى أولاً'
-    : 'Please enter your name at the top first');
+  focusNameField();
   return;
 }
 
