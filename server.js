@@ -21,7 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //  RSVP ROUTES
 // ════════════════════════════════════════════════════════
 
-// Get all RSVPs
 app.get('/api/rsvps', async (req, res) => {
   const { data, error } = await supabase
     .from('rsvps')
@@ -32,7 +31,6 @@ app.get('/api/rsvps', async (req, res) => {
   res.json(data);
 });
 
-// Submit a new RSVP
 app.post('/api/rsvps', async (req, res) => {
   const { name, answer } = req.body;
 
@@ -56,7 +54,6 @@ app.post('/api/rsvps', async (req, res) => {
 //  MESSAGE ROUTES
 // ════════════════════════════════════════════════════════
 
-// Get all messages
 app.get('/api/messages', async (req, res) => {
   const { data, error } = await supabase
     .from('messages')
@@ -68,7 +65,6 @@ app.get('/api/messages', async (req, res) => {
   res.json(data);
 });
 
-// Submit a new message
 app.post('/api/messages', async (req, res) => {
   const { name, message } = req.body;
 
@@ -89,7 +85,6 @@ app.post('/api/messages', async (req, res) => {
 //  DRAWING ROUTES
 // ════════════════════════════════════════════════════════
 
-// Get all drawings sorted by votes
 app.get('/api/drawings', async (req, res) => {
   const { data, error } = await supabase
     .from('drawings')
@@ -101,7 +96,6 @@ app.get('/api/drawings', async (req, res) => {
   res.json(data);
 });
 
-// Submit a new drawing
 app.post('/api/drawings', async (req, res) => {
   const { name, image_data } = req.body;
 
@@ -121,11 +115,9 @@ app.post('/api/drawings', async (req, res) => {
   res.status(201).json(data);
 });
 
-// Vote for a drawing
 app.post('/api/drawings/:id/vote', async (req, res) => {
   const { id } = req.params;
 
-  // Get current vote count first
   const { data: current, error: fetchErr } = await supabase
     .from('drawings')
     .select('votes')
@@ -134,7 +126,6 @@ app.post('/api/drawings/:id/vote', async (req, res) => {
 
   if (fetchErr) return res.status(500).json({ error: fetchErr.message });
 
-  // Then increment it
   const { data, error } = await supabase
     .from('drawings')
     .update({ votes: (current.votes || 0) + 1 })
@@ -147,18 +138,11 @@ app.post('/api/drawings/:id/vote', async (req, res) => {
 });
 
 // ════════════════════════════════════════════════════════
-//  CATCH-ALL — serve the frontend for any other route
-// ════════════════════════════════════════════════════════
-app.get('/{*any}', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// ════════════════════════════════════════════════════════
 //  ADMIN ROUTES
 // ════════════════════════════════════════════════════════
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-// Verify password
+
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body;
   if (password === ADMIN_PASSWORD) {
@@ -168,7 +152,6 @@ app.post('/api/admin/login', (req, res) => {
   }
 });
 
-// Get all RSVPs with counts
 app.get('/api/admin/rsvps', async (req, res) => {
   const { password } = req.query;
   if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
@@ -182,7 +165,6 @@ app.get('/api/admin/rsvps', async (req, res) => {
   res.json(data);
 });
 
-// Get all messages (admin)
 app.get('/api/admin/messages', async (req, res) => {
   const { password } = req.query;
   if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
@@ -196,7 +178,6 @@ app.get('/api/admin/messages', async (req, res) => {
   res.json(data);
 });
 
-// Get all drawings (admin)
 app.get('/api/admin/drawings', async (req, res) => {
   const { password } = req.query;
   if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
@@ -210,7 +191,6 @@ app.get('/api/admin/drawings', async (req, res) => {
   res.json(data);
 });
 
-// Delete a message
 app.delete('/api/admin/messages/:id', async (req, res) => {
   const { password } = req.query;
   if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
@@ -224,7 +204,6 @@ app.delete('/api/admin/messages/:id', async (req, res) => {
   res.json({ success: true });
 });
 
-// Delete a drawing
 app.delete('/api/admin/drawings/:id', async (req, res) => {
   const { password } = req.query;
   if (password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
@@ -236,6 +215,13 @@ app.delete('/api/admin/drawings/:id', async (req, res) => {
 
   if (error) return res.status(500).json({ error: error.message });
   res.json({ success: true });
+});
+
+// ════════════════════════════════════════════════════════
+//  CATCH-ALL — must be absolutely last
+// ════════════════════════════════════════════════════════
+app.get('/{*any}', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // ── Start server ─────────────────────────────────────────

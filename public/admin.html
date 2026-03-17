@@ -476,9 +476,9 @@
 </div>
 
 <script>
-  let _password = '';
-  let _rsvps    = [];
-  let _rsvpFilter = 'all';
+  let _password   = localStorage.getItem('adminPassword') || '';
+let _rsvps      = [];
+let _rsvpFilter = 'all';
 
   /* ── LOGIN ── */
   async function login() {
@@ -496,6 +496,7 @@
       if (!res.ok) throw new Error(json.error);
 
       _password = pw;
+      localStorage.setItem('adminPassword', pw);
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('dashboard').style.display   = 'block';
       loadAll();
@@ -504,12 +505,26 @@
     }
   }
 
-  function logout() {
-    _password = '';
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('dashboard').style.display   = 'none';
-    document.getElementById('passwordInput').value = '';
+  // Auto-login if password already saved
+(async function autoLogin() {
+  if (!_password) return;
+  try {
+    const res  = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _password })
+    });
+    if (!res.ok) {
+      localStorage.removeItem('adminPassword');
+      return;
+    }
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display   = 'block';
+    loadAll();
+  } catch(e) {
+    localStorage.removeItem('adminPassword');
   }
+})();
 
   /* ── LOAD ALL DATA ── */
   async function loadAll() {
